@@ -868,23 +868,40 @@ body {
 
     .first-point,
     .second-point {
+        
+        align-self: center;
+        justify-self: center;
         text-align: center;
         left: 0;  /* Reset animation positions for small screens */
         right: 0;
         scale: 1; /* Reset scale for small screens */
         animation: none;
         word-wrap: break-word;
+        width: 100%;
         outline: 2px solid yellow;
     }
     
-    .points2 {
-        width: 100%;
+    .wobble svg {
+        width: 80%;
+    }
+
+    .wobble2 {
+        justify-self: center;
+        align-self: center;
+        display: flex;
         justify-content: center;
+        flex-direction: column;
+    }
+
+    .points2 {
+        width: 50%;
+        align-self: center;
         outline: 2px solid red;
     }
 
     .points {
-        width: 100%;
+        width: 50%;
+        align-self: center;
         display: flex;
         justify-content: center;
         align-items: center;
