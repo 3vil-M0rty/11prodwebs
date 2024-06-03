@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11Prod - VOTRE PARTENAIRE ÉVÉNEMENT AU MAROC</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="static/css/index.css">
+    <link rel="icon" type="image/x-icon" href="static/images/logo.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap');
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+    </style>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script src="static/js/index.js"></script>
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="#" id="logo">
+            <img src="static/images/logo.png" alt="11prodLogo">
+        </a>
+        <a href="https://www.instagram.com/11prodofficiel/">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" fill="white" class="bi bi-instagram"
+                viewBox="0 0 16 16">
+                <path
+                    d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334" />
+            </svg>
+        </a>
+        <a href="mailto:contact@11prod.ma">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-envelope"
+                viewBox="0 0 16 16">
+                <path
+                    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+            </svg>
+        </a>
+        <a class="home">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-geo-alt-fill"
+                viewBox="0 0 16 16">
+                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+            </svg>
+        </a>
+    </div>
+    <div id="mapPopup" class="map-popup">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <div id="map" style="height: 400px; width: 100%;"></div>
+        </div>
+    </div>
+    <div id="overlay">
+        <div id="overlay-content">
+            <p><span id="one">1</span><span id="onetwo">1</span> <span id="prod">PROD</span></p>
+        </div>
+    </div>
+
+
+    <div class="slideshow-container">
+        <div id="overlay2">
+            <p id="small">une passion illimitée</p>
+            <p id="big">11 PROD</p>
+            <!-- <p id="other">11PROD, expert en création d'expériences inoubliables, vous propose un service exclusif pour
+                la conception,
+                la coordination et la décoration de vos événements haut de gamme au Maroc.
+
+                Basée à Marrakech et opérant à travers le royaume, notre équipe dévouée vous accompagne dans chaque
+                étape de
+                votre projet festif, promotionnel, corporatif ou privé. Notre signature ? Une créativité sans limite et
+                une
+                attention minutieuse aux détails, garantissant des moments chargés d'émotions et de plaisir pour vous et
+                vos
+                convives.
+
+                Confiez-nous votre vision et laissez-nous vous offrir une expérience client exceptionnelle, où chaque
+                élément est soigneusement conçu pour surpasser vos attentes. Avec 11PROD, vos rêves prennent vie.</p> -->
+        </div>
+        <!-- mysludes with images go here -->
+    </div>
+
+    <div class="intro">
+        <p><span>11 PROD Votre Partenaire Événementiel De Confiance</span></p>
+    </div>
+    
+    <div class="services">
+        <div class="head">
+            <div class="scroller" data-direction="right" data-speed="fast">
+                <div class="scroller__inner">
+                  <img class="horizontal" src="static/images/img1.jpg" alt="" />
+                  <img class="horizontal" src="static/images/img2.jpg" alt="" />
+                  <img class="horizontal" src="static/images/img3.jpg" alt="" />
+                  <img class="horizontal" src="static/images/img1.jpg" alt="" />
+                  <img class="horizontal" src="static/images/img1.jpg" alt="" />
+                  <img class="horizontal" src="static/images/img1.jpg" alt="" />
+                </div>
+              </div>
+            <div class="title-with-img">
+                <h1>FORGEZ L'ÉVÉNEMENT DE VOS RÊVES</h1>
+                <img class="rotate" src="static/images/sticker.png" alt="">
+            </div>
+        </div>
+
+        <div class="options">
+            <div class="option" id="option-1">
+                <img src="static/images/ser1.jpg" alt="">
+                <p>écran led</p>
+            </div>
+            <div class="option" id="option-2">
+                <img src="static/images/ser2.jpg" alt="">
+                <p>design scénique</p>
+            </div>
+            <div class="option" id="option-3">
+                <img src="static/images/ser3.jpg" alt="">
+                <p>captation</p>
+            </div>
+            <div class="option" id="option-4">
+                <img src="static/images/ser4.jpg" alt="">
+                <p>éclairage</p>
+            </div>
+            <div class="option" id="option-5">
+                <img src="static/images/ser5.jpg" alt="">
+                <p>sonorisation</p>
+            </div>
+            <div class="option" id="option-6">
+                <img src="static/images/ser6.jpg" alt="">
+                <p>backline</p>
+            </div>
+        </div>
+        <div class="points">
+            <div class="first-point" id="first-point">
+                <p class="point-text">
+                    <span class="title">Fiabilité Professionnelle</span><br>
+                    <span>Un partenaire sûr garantit une gestion professionnelle, des délais respectés et une communication transparente.</span>
+                </p>
+            </div>
+        </div>
+        <div class="points2">
+            <div class="second-point" id="second-point">
+                <p class="point-text">
+                    <span class="title">Expertise Créative</span><br>
+                    <span>L'expertise approfondie se traduit par des solutions créatives innovantes et une compréhension pointue des tendances du marché.</span>
+                </p>
+            </div>
+        </div>
+        <div class="points">
+            <div class="first-point" id="third-point">
+                <p class="point-text">
+                    <span class="title">Gestion Économique</span><br>
+                    <span>Une approche économique optimise les coûts sans compromettre la qualité, assurant une rentabilité maximale pour chaque événement.</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="static/js/slider.js"></script>
+
+</body>
+
+</html>

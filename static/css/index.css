@@ -1,0 +1,883 @@
+body {
+    padding: 0;
+    margin: 0px;
+    font-family: "Karla", sans-serif;
+    background-color: black;
+    overflow-y: visible;
+    overflow-x: hidden;
+    min-height: 4500px;
+}
+
+.navbar {
+    position: relative;
+    background-color: black;
+    width: 100%;
+    overflow: hidden;
+    height: 50px;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 14px;
+}
+
+#map {
+    height: 400px;
+    width: 400px;
+}
+
+
+
+/* Ensure the popup covers the whole screen and is centered */
+.map-popup {
+    display: none;
+    /* Hidden by default */
+    position: absolute;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Style the popup content */
+.popup-content {
+    position: relative;
+    background-color: #000000;
+    margin: 10% auto;
+    /* 10% from the top and centered */
+    padding: 10px;
+    border: 1px solid #000000;
+    box-shadow: rgba(0, 0, 0, 0.8) 0 8px 15px;
+    border-radius: 15px;
+    width: 80%;
+    /* Could be more or less, depending on screen size */
+    max-width: 600px;
+    /* Max width for larger screens */
+}
+
+/* Style the close button */
+.close-btn {
+    color: #aaa;
+    float: right;
+    margin-bottom: 10px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.navbar a {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#logo {
+    position: absolute;
+    left: 10px;
+}
+
+#logo img {
+    height: 30px;
+    width: 60px;
+}
+
+
+.direction-button {
+    appearance: none;
+    background-color: #000000;
+    border-radius: 15px;
+    border: 2px solid black;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0;
+    min-height: 60px;
+    min-width: 0;
+    outline: none;
+    padding: 16px 24px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 100%;
+    will-change: transform;
+}
+
+.direction-button:disabled {
+    pointer-events: none;
+}
+
+.direction-button:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+}
+
+.direction-button:active {
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+#spname {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+    border: none;
+}
+
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    min-height: 93vh;
+}
+
+.slideshow-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 3px 3px black, inset 0em -2.2em 20px black;
+    z-index: 4;
+    /* Ensure this is above the images */
+    pointer-events: none;
+    /* Ensure it does not interfere with interaction */
+}
+
+.mySlides {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 3s ease-in-out;
+    /* Add transition property */
+}
+
+.mySlides img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+}
+
+.mySlides.fade {
+    display: block;
+    opacity: 1;
+}
+
+
+
+/* CSS for overlay */
+#overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Semi-transparent black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    overflow: hidden;
+    /* Make sure it's above everything else */
+}
+
+@keyframes slideFromLeft2 {
+    0% {
+        left: 0%;
+        /* Initial position off the left side */
+    }
+
+    100% {
+        left: -100%;
+        /* Final position at the center */
+    }
+}
+
+@keyframes slideFromLeft {
+    0% {
+        left: -100%;
+        /* Initial position off the left side */
+    }
+
+    100% {
+        left: 0%;
+        /* Final position at the center */
+    }
+}
+
+@keyframes slideFromRight {
+    0% {
+        right: -100%;
+        scale: 0.8;
+        /* Initial position off the left side */
+    }
+
+    100% {
+        right: 0%;
+        scale: 1;
+        /* Final position at the center */
+    }
+}
+
+
+
+#overlay2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    display: none;
+    z-index: 3;
+    font-weight: 400;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: "Karla", sans-serif;
+    left: -100%;
+    animation: slideFromLeft 2s ease forwards;
+    /* Apply the animation */
+
+}
+
+
+#overlay2 p {
+    position: relative;
+    margin: 0;
+    padding: 10px;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+#small {
+    text-align: center;
+    color: #b3b3b3;
+    text-transform: uppercase;
+}
+
+#other {
+    color: #b3b3b3;
+}
+
+#big {
+    color: white;
+    text-align: center;
+    font-size: 7.42rem;
+}
+
+
+#overlay-content {
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: row;
+}
+
+/* Hide the overlay when it's not needed */
+#overlay.hidden {
+    display: none;
+}
+
+#overlay2.shown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#overlay-content p {
+    font-family: "Karla", sans-serif;
+    font-weight: 400;
+    font-size: 60px;
+}
+
+@keyframes movetext {
+    0% {
+        transform: translateX(-120px);
+    }
+
+
+    100% {
+        transform: translateX(-550px);
+    }
+}
+
+@keyframes movetext2 {
+    0% {
+        transform: translateX(-95px);
+    }
+
+    100% {
+        transform: translateX(70px);
+    }
+}
+
+@keyframes changeTextAnimation {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes changeTextAnimation2 {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+#prod {
+    position: absolute;
+    transform: translateX(-70px);
+    animation: changeTextAnimation 1s ease-in-out forwards;
+}
+
+#one {
+    position: absolute;
+    transform: translateX(-120px);
+    animation: movetext 1s ease-in-out forwards 1s;
+}
+
+#onetwo {
+    position: absolute;
+    transform: translateX(-95px);
+    animation: movetext2 1s ease-in-out forwards 1s;
+}
+
+
+@keyframes scroll-reveal {
+    to {
+        background-size: 100% 100%;
+    }
+}
+
+.intro {
+    padding: 55px;
+    box-shadow: 0px 80px 20px 0px black;
+
+}
+
+.intro p {
+    text-align: center;
+    z-index: 11000;
+    overflow: visible;
+    padding: 15px;
+    font-size: 30px;
+    color: hsl(0 0% 100% / 0.2);
+    background-clip: text;
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    background-image: linear-gradient(90deg, white, white);
+    animation: scroll-reveal linear forwards;
+    animation-timeline: view();
+
+}
+
+.intro p span {
+    text-transform: uppercase;
+    animation-range-start: cover 100vh;
+    animation-range-end: cover 98vh;
+}
+
+.services {
+    margin-top: 20px;
+    padding: 10px;
+}
+
+/* .head {
+    width: 70%;
+    left: 5%;
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: row;
+} */
+
+.services h1 {
+    width: 50%;
+    margin-top: -4%;
+    color: white;
+    font-family: "Fira Sans Condensed", sans-serif;
+    font-weight: 500;
+    font-size: 4.25rem;
+    line-height: 1;
+}
+
+.head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.title-with-img h1 {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 900;
+}
+
+
+@keyframes scaleIT {
+    to {
+        transform: scale(1.2)
+    }
+}
+
+.title-with-img h1 {
+    animation: scaleIT
+        /* cubic-bezier(0, 0, 0.3, 1) */
+        ease-in-out infinite;
+    animation-timeline: view(200px);
+}
+
+
+
+
+.title-with-img {
+    margin-left: 10%;
+    display: flex;
+    flex-direction: row;
+}
+
+@keyframes bounce {
+
+    to {
+        transform: translateX(50%);
+    }
+
+}
+
+
+.rotate {
+    margin-top: -6%;
+    margin-left: -40px;
+    height: 160px;
+    width: 160px;
+}
+
+@keyframes horizontal-move {
+    to {
+        transform: translateX(-40%);
+    }
+}
+
+@keyframes bg-shift {
+    from {
+        background-color: red;
+    }
+
+    to {
+        background-color: blue;
+    }
+}
+
+/* .band-container {
+    z-index: -1;
+    transform: translateX(50%);
+    max-width: 600px;
+    border: 2px solid yellow;
+    -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+    mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent); 
+}
+
+
+.horizontal-img-band {
+    position: absolute;
+    display: flex;
+    width: max-content;
+    padding-block: 1rem;
+    gap: 1rem;
+}
+ */
+
+
+/* 
+.horizontal-img-band img {
+    box-shadow: 2em 0em 1em white;
+} */
+
+/* .band-container {
+    width: 20%;
+    border-left: 5px solid black;
+    box-shadow: inset 2em 0em 3em black;
+    margin-left: -20px;
+}
+ */
+
+
+.scroller {
+    max-width: 90%;
+}
+
+.scroller__inner {
+    padding-block: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+}
+
+.scroller[data-animated="true"] .scroller__inner:hover {
+    animation-play-state: paused;
+}
+
+.scroller[data-animated="true"] .scroller__inner img:hover {
+    transform: scale(1.2);
+}
+
+.scroller[data-animated="true"] .scroller__inner img {
+    transition: transform 0.4s linear;
+}
+
+.scroller[data-animated="true"] {
+    overflow: hidden;
+    -webkit-mask: linear-gradient(90deg,
+            transparent,
+            white 20%,
+            white 80%,
+            transparent);
+    mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+}
+
+.scroller[data-animated="true"] .scroller__inner {
+    width: max-content;
+    flex-wrap: nowrap;
+    animation: scroll var(--_animation-duration, 40s) var(--_animation-direction, forwards) linear infinite;
+}
+
+.scroller[data-direction="right"] {
+    --_animation-direction: reverse;
+}
+
+.scroller[data-direction="left"] {
+    --_animation-direction: forwards;
+}
+
+.scroller[data-speed="fast"] {
+    --_animation-duration: 20s;
+}
+
+.scroller[data-speed="slow"] {
+    --_animation-duration: 60s;
+}
+
+@keyframes scroll {
+    to {
+        transform: translate(calc(-50% - 0.5rem));
+    }
+}
+
+
+
+.horizontal,
+.horizontal2 {
+    width: 300px;
+    opacity: 1;
+    height: 300px;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+
+}
+
+
+.options {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.option img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 0;
+    scale: 0.8;
+    opacity: 0;
+    border-radius: 15px 15px 0 0;
+    animation: fadeIN linear forwards;
+    animation-timeline: view();
+    animation-range: entry;
+}
+
+
+@keyframes fadeIN {
+    from {
+        scale: 0.8;
+        opacity: 0;
+    }
+
+    to {
+        scale: 1;
+        opacity: 1;
+    }
+}
+
+.option p {
+    background-color: white;
+    text-align: center;
+    padding: 15px;
+    margin: 0;
+    margin-top: -5px;
+    border-radius: 0 0 15px 15px;
+    animation: fadeIN linear forwards;
+    color: black;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    animation-timeline: view();
+    animation-range: entry 0 250px;
+}
+
+/* clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%); */
+
+.rotate {
+    animation: rotate 1s linear infinite;
+    animation-play-state: paused;
+    animation-delay: calc(var(--scroll)*-1s);
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+
+}
+
+.points, .points2 {
+    margin-top: 50px;
+    outline: 5px solid yellow;
+    color: white;
+    padding: 10px;
+}
+
+.first-point, .second-point {
+    position: relative;
+    gap: 10px;
+    text-align: start;
+    width: 32%;
+    word-wrap: break-word;
+}
+
+.first-point {
+    left: -100%;
+    animation: slideFromLeft linear forwards;
+    animation-timeline: view();
+    animation-range: 100px 300px;
+}
+
+.second-point {
+    right: -100%;
+    scale: 0.8;
+    animation: slideFromRight linear forwards;
+    animation-timeline: view();
+    animation-range: 100px 300px;
+}
+
+.points2 {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#second-point{
+    margin-left: auto;
+    outline: 5px solid red;
+    text-align: right;
+}
+
+
+
+.title{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 2.45rem;
+}
+
+
+@keyframes rotate {
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 750px) {
+    .intro {
+        padding: 10px;
+        box-shadow: 0px 40px 5px 0px black;
+        ;
+    }
+
+    .options {
+        margin-top: 50px;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 15px;
+        color: rgb(211, 0, 0);
+    }
+
+    .body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden !important;
+    }
+
+    .intro p {
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    #overlay {
+        display: none;
+    }
+
+    #overlay2 {
+        width: 100%;
+    }
+
+    #overlay2 p {
+        position: relative;
+        margin: 0;
+        padding: 5px;
+        max-width: 100%;
+        word-wrap: break-word;
+    }
+
+    #small {
+        text-align: center;
+        color: #b3b3b3;
+        text-transform: uppercase;
+    }
+
+
+    #big {
+        color: white;
+        text-align: center;
+        font-size: 5.50rem;
+    }
+
+    
+    .horizontal {
+        width: 100px;
+        opacity: 1;
+        height: 100px;
+        clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+
+    }
+
+    .services h1 {
+        width: 50%;
+        font-size: 2.25rem;
+    }
+
+    .title-with-img h1 {
+        font-weight: 200;
+    }
+
+    .title-with-img {
+        margin-top: 50px;
+        margin-left: 15%;
+    }
+
+    .rotate {
+        margin-top: 55px;
+        margin-left: -20px;
+        height: 80px;
+        width: 80px;
+    }
+
+    .horizontal2 {
+        display: none;
+    }
+
+    #map {
+        height: 350px;
+        width: 350px;
+    }
+
+    /* Ensure the popup covers the whole screen and is centered */
+    .map-popup {
+        display: none;
+        /* Hidden by default */
+        position: absolute;
+        z-index: 10000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    /* Style the popup content */
+    .popup-content {
+        position: relative;
+        background-color: #000000;
+        margin: 5% auto;
+        /* 10% from the top and centered */
+        padding: 5px;
+        border: 1px solid #000000;
+        box-shadow: rgba(0, 0, 0, 0.8) 0 8px 15px;
+        border-radius: 15px;
+        width: 80%;
+        /* Could be more or less, depending on screen size */
+        max-width: 600px;
+        /* Max width for larger screens */
+    }
+
+    @keyframes scale2 {
+        to {
+            scale: 1;
+        }
+    }
+    .first-point, .second-point {
+        width: 100%;
+        left: 0;
+        text-align: center;
+        display: flex;
+        animation: none;
+        align-items: center;
+        justify-content: center;
+    }
+    .points2 {
+        display: block;
+    }
+
+    .point-text {
+        scale: 0.8;
+        animation: scale2 linear forwards;
+        animation-timeline: view();
+        animation-range: 20px 70px;
+    }
+    
+    #second-point{
+        margin-left: auto;
+        outline: none;
+        text-align: center;
+    }
+}
