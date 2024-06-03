@@ -662,7 +662,6 @@ body {
 .wobble {
     width: 100%;
     margin-top: 50px;
-    outline: 5px solid red;
     padding: 0;
     display: grid;
     place-content: center;
@@ -754,6 +753,7 @@ body {
         margin: 0;
         padding: 0;
         overflow-x: hidden !important;
+        width: 100%;
     }
 
     .intro p {
@@ -868,7 +868,6 @@ body {
 
     .first-point,
     .second-point {
-        
         align-self: center;
         justify-self: center;
         text-align: center;
@@ -878,7 +877,6 @@ body {
         animation: none;
         word-wrap: break-word;
         width: 100%;
-        outline: 2px solid yellow;
     }
     
     .wobble svg {
@@ -896,7 +894,6 @@ body {
     .points2 {
         width: 50%;
         align-self: center;
-        outline: 2px solid red;
     }
 
     .points {
@@ -905,7 +902,6 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-        outline: 2px solid red;
     }
 
     #second-point {
